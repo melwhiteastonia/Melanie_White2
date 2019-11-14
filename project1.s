@@ -3,7 +3,7 @@
 output: .asciiz "Output:" #this will print the base conversion 
 string: .space 1032 #array goes here with 10 elements
 newline: .asciiz "\n"
-
+invalid: .asciiz "Invalid Input" #prints invalid input
 .text #enables text input
 
 #-----------------------------------------------------------------------------
@@ -11,7 +11,7 @@ newline: .asciiz "\n"
 main:
 
 la $s1, 0 #space for the first charactar
-la $s2, 0 #space for the second charactar
+la $s2, 0 #space for the charactar of the substring
 
 # create the string space and gets the user input
 
@@ -22,11 +22,11 @@ li $a1, 1000 #a string of 1000 integers
 syscall 
 
 move $s0, $a0  #stores the string in the register
-move $t4, $a0  #stores the string in a temporary register
+move $t4, $s0  #stores the string in a temporary register
 
 
 
-
+j main_program #computer goes to the main program
 
 #----------------------------------------------------------------------------
 move $t0, $a0 #a pointer to the temporary space
