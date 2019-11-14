@@ -10,7 +10,8 @@ newline: .asciiz "\n"
 
 main:
 
-
+la $s1, 0 #space for the first charactar
+la $s2, 0 #space for the second charactar
 
 # create the string space and gets the user input
 
@@ -18,8 +19,11 @@ li $v0, 8 #gets the system ready to read the code
 la $a0, string #address to store the variable
 li $a1, 1000 #a string of 1000 integers
 
-
 syscall 
+
+move $s0, $a0  #stores the string in the register
+move $t4, $a0  #stores the string in a temporary register
+
 
 
 
