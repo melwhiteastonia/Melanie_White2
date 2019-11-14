@@ -1,7 +1,7 @@
 .data
 
 output: .asciiz "Output:" #this will print the base conversion 
-string: .space 32 #array goes here with 10 elements
+string: .space 1032 #array goes here with 10 elements
 newline: .asciiz "\n"
 
 .text #enables text input
@@ -10,15 +10,13 @@ newline: .asciiz "\n"
 
 main:
 
-la $s1, 0   #declaring space for result
-la $s3, 0   #checking if their is space after valid charactar 
-la $s4, 0   #declaring space for valid charactar 
+
 
 # create the string space and gets the user input
 
 li $v0, 8 #gets the system ready to read the code
 la $a0, string #address to store the variable
-li $a1, 11 #a string of 10 integers
+li $a1, 1000 #a string of 1000 integers
 
 
 syscall 
