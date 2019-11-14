@@ -10,8 +10,12 @@ invalid: .asciiz "Invalid Input" #prints invalid input
 
 main:
 
-la $s1, 0 #space for the first charactar
-la $s2, 0 #space for the charactar of the substring
+la $s1, 0  #register for final input
+la $s2, 0    #register for tracking space charactar
+la $s3, 0  #register for space charactar
+la $s4, 0  #for valid charactar after loop
+
+
 
 # create the string space and gets the user input
 
@@ -26,19 +30,28 @@ move $t4, $s0  #stores the string in a temporary register
 
 
 
-j main_program #computer goes to the main program
+j mainp #computer goes to the main program
 
 #----------------------------------------------------------------------------
+
+mainp: 
+
+
+
 move $t0, $a0 #a pointer to the temporary space
 loop: #loop to iterate over a string
 
 lb $a0, ($t0)	#loads the string
 addi $t0, $t0, 1 #increments one to the string
 beqz $a0, end #if it's null the program will go to terminate
-beq $a0, 10, end #if it's longer than 10 spaces then the program will go to terminate
+
 beq $a0, 32, spacecharactar
 bne, $s3, 1, checkpoint  #if the charactar is a space then it will go to offset
 bne, $s4, 1, checkpoint  #if it is true that the charactar is valid then it will go to the offset
+
+
+
+
 
 
 j invalid 
@@ -131,6 +144,10 @@ spacecharactar: #in the instance of a space
 
 
 j loop
+
+
+
+#beq $a0, 10, end #if it's longer than 10 spaces then the program will go to terminate
 
 							
 
