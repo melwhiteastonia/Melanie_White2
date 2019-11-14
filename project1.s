@@ -24,33 +24,29 @@ la $a0, string #address to store the variable
 li $a1, 1000 #a string of 1000 integers
 
 syscall 
+ 
 
-move $s0, $a0  #stores the string in the register
-move $t4, $s0  #stores the string in a temporary register
-
-
-
-j mainp #computer goes to the main program
 
 #----------------------------------------------------------------------------
 
-mainp: 
-
-
-
 move $t0, $a0 #a pointer to the temporary space
+
+
 loop: #loop to iterate over a string
 
 lb $a0, ($t0)	#loads the string
 addi $t0, $t0, 1 #increments one to the string
 beqz $a0, end #if it's null the program will go to terminate
+j loop
 
-beq $a0, 32, spacecharactar
-bne, $s3, 1, checkpoint  #if the charactar is a space then it will go to offset
-bne, $s4, 1, checkpoint  #if it is true that the charactar is valid then it will go to the offset
+#beq $a0, 10, end  #if charactar less than 10 is found goes to end
+#beq $a0, 9, tab #if tab is found then goes to loop
+#beq $a0, 32, spacecharactar
+#bne, $s3, 1, checkpoint  #if the charactar is a space then it will go to offset
+#bne, $s2, 1, checkpoint  #if it is true that the charactar is valid then it will go to the offset
 
 
-
+#j invalid #jumps to invalid loop
 
 
 
@@ -74,9 +70,10 @@ j invalid #the end of the loop
 #----------------------------------------------------------------------------------------------------------------------
 
 end: 
-
-beqz, $s4, invalid      #if the value within the register is not zero then it goes to the invalid loop
-
+#beqz $s2, checkpoint
+subi $t0, $t0, 1       #iterates over the string position
+lb $a0 ($t0)  #loads bits for the $a0 position
+beq $a0, 32, end
 j print
 
 #---------------------------------------------------------------------------------------------------------------
@@ -129,11 +126,19 @@ j loop
  
 invalid: #if the ascii value is invalid 
 
-addi $s2, $zero, 0        #if the value is invalid then you add 0 to the temp register
-addu $s1, $s1, $s2  #adds that value to the final result 
 
-j loop
+li $v0, 4 #prints out a string
+la $a0, newline #skips line
+syscall
 
+li $v0, 4  #prints out a string
+la $a0, invalid #prints invalid input message
+syscall
+
+li $v0, 10  #exits the program
+syscall 
+
+jal subprogram 
 
 #-----------------------------------------------------------------------------------------------
 
