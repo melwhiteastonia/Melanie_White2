@@ -154,7 +154,28 @@ j loop
 
 #beq $a0, 10, end #if it's longer than 10 spaces then the program will go to terminate
 
-							
+#-----------------------------------------------------------------------
+
+
+subprogram: 
+
+addi $sp, $sp, -4 #stack pointer
+sw $s0, 0($sp)
+jr $ra
+
+
+
+final: 
+li $v0, 4 #if charactar is valid it runs
+la $a0, endl #prints new lie charactar
+syscall 
+
+
+move $a0, $s1 
+li $v0, 1               #prints out an integer
+syscall
+
+li $v0, 10							
 
 
 
