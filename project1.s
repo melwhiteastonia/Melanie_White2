@@ -73,8 +73,9 @@ end:
 #beqz $s2, checkpoint
 subi $t0, $t0, 1       #iterates over the string position
 lb $a0 ($t0)  #loads bits for the $a0 position
-beq $a0, 32, end
-j print
+beq $a0, 32, end   #checks for space
+beq $a0, 9, end #checks for tab
+j checkpoint
 
 #---------------------------------------------------------------------------------------------------------------
 
